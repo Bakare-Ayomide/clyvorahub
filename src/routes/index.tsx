@@ -10,6 +10,7 @@ import { FeaturesSection } from "@/components/FeaturesSection";
 import { HowItWorks } from "@/components/HowItWorks";
 import { UseCases } from "@/components/UseCases";
 import { Testimonials } from "@/components/Testimonials";
+import { MidPageCTA } from "@/components/MidPageCTA";
 import { FinalCTA } from "@/components/FinalCTA";
 import { Footer } from "@/components/Footer";
 
@@ -32,6 +33,7 @@ function Index() {
       <DownloadHighlight />
       <DownloadGuide />
       <AboutSection />
+      <MidPageCTA />
       <ServicesGrid />
       <FeaturesSection />
       <HowItWorks />

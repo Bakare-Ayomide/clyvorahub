@@ -1,4 +1,4 @@
-import { Download } from "lucide-react";
+import { Download, Shield, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { handleDownload } from "@/lib/download";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
@@ -22,6 +22,11 @@ export function FinalCTA() {
             <Download className="size-6" />
             Download Free App
           </Button>
+          <div className="flex justify-center gap-6 text-sm text-muted-foreground">
+            <span className="flex items-center gap-1.5"><Shield className="size-4 text-primary" /> Secure</span>
+            <span className="flex items-center gap-1.5"><CheckCircle className="size-4 text-primary" /> Free Forever</span>
+            <span className="flex items-center gap-1.5"><Download className="size-4 text-primary" /> 500K+ Downloads</span>
+          </div>
         </div>
       </div>
     </section>
