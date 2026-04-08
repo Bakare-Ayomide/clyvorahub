@@ -35,12 +35,14 @@ export const Route = createRootRoute({
       { name: "description", content: "CLYVORA is a unified ecosystem for publishing, licensing, distributing, and monetizing content globally." },
       { name: "author", content: "CLYVORA" },
       { property: "og:title", content: "CLYVORA — Publishing Knowledge. Powering Media." },
-      { property: "og:description", content: "The future of publishing, media & education." },
+      { property: "og:description", content: "CLYVORA is a unified ecosystem for publishing, licensing, distributing, and monetizing content globally." },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "https://lovable.dev/opengraph-image-p98pqg.png" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/5d70ff28-9fde-4d6a-9585-43b6d904fef8" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@CLYVORA" },
-      { name: "twitter:image", content: "https://lovable.dev/opengraph-image-p98pqg.png" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/5d70ff28-9fde-4d6a-9585-43b6d904fef8" },
+      { name: "twitter:title", content: "CLYVORA — Publishing Knowledge. Powering Media." },
+      { name: "twitter:description", content: "CLYVORA is a unified ecosystem for publishing, licensing, distributing, and monetizing content globally." },
     ],
     links: [
       {
