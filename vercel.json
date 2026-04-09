@@ -1,0 +1,17 @@
+{
+  "rewrites": [
+    {
+      "source": "/((?!assets|CLYVORA-Setup|placeholder\\.svg|favicon).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/CLYVORA-Setup-v1.0.exe",
+      "headers": [
+        { "key": "Content-Type", "value": "application/octet-stream" },
+        { "key": "Content-Disposition", "value": "attachment; filename=CLYVORA-Setup-v1.0.exe" }
+      ]
+    }
+  ]
+}
