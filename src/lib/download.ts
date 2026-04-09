@@ -1,16 +1,24 @@
-// ✅ OPTION 1: Local file — place your .exe in the public/ folder
-// ✅ OPTION 2: External URL — paste a direct download link below
-const DOWNLOAD_URL =
-  "/CLYVORA-Setup-v1.0.exe"; // Local: put file in public/CLYVORA-Setup-v1.0.exe
-  // "https://github.com/YourOrg/CLYVORA/releases/download/v1.0/CLYVORA-Setup-v1.0.exe"; // External: uncomment & use this instead
+import { getActiveDownload } from "./download.functions";
 
-export function handleDownload() {
-  const link = document.createElement("a");
-  link.href = DOWNLOAD_URL;
-  link.download = "CLYVORA-Setup-v1.0.exe";
-  link.click();
+export async function handleDownload() {
+  try {
+    const { file } = await getActiveDownload();
 
-  setTimeout(() => {
-    window.location.href = "/thank-you";
-  }, 1500);
+    if (!file) {
+      alert("No download file available yet. Please check back later.");
+      return;
+    }
+
+    const link = document.createElement("a");
+    link.href = file.download_url;
+    link.download = file.display_name;
+    link.click();
+
+    setTimeout(() => {
+      window.location.href = "/thank-you";
+    }, 1500);
+  } catch (err) {
+    console.error("Download error:", err);
+    alert("Download failed. Please try again.");
+  }
 }
