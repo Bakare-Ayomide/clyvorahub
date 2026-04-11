@@ -1,5 +1,6 @@
 {
   "buildCommand": "npm run build",
+  "outputDirectory": "dist/client",
   "routes": [
     {
       "src": "/assets/(.*)",
@@ -9,6 +10,5 @@
       "src": "/.*",
       "dest": "/api/entry.js"
     }
-  ],
-  "public": "dist/client"
+  ]
 }
