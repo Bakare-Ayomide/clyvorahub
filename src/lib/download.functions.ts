@@ -1,9 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { supabase } from "@/integrations/supabase/client";
 
 export const getActiveDownload = createServerFn({ method: "GET" }).handler(
   async () => {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await supabase
       .from("download_files")
       .select("*")
       .eq("is_active", true)
@@ -19,7 +19,7 @@ export const getActiveDownload = createServerFn({ method: "GET" }).handler(
     if (!data) return { file: null };
 
     // Get public URL from storage
-    const { data: urlData } = supabaseAdmin.storage
+    const { data: urlData } = supabase.storage
       .from("downloads")
       .getPublicUrl(data.storage_path);
 
