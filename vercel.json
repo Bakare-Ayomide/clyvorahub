@@ -1,11 +1,6 @@
 {
-  "buildCommand": "bun run build",
-  "outputDirectory": "dist/client/public",
-  "functions": {
-    "api/entry.ts": {
-      "runtime": "nodejs20.x"
-    }
-  },
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/client",
   "routes": [
     {
       "src": "/(.*)",
