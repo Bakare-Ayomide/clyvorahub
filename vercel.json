@@ -1,12 +1,23 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/((?!assets|CLYVORA-Setup|placeholder\\.svg|favicon).*)",
-      "destination": "/index.html"
+      "source": "/CLYVORA-Setup-v1.0.exe",
+      "destination": "/CLYVORA-Setup-v1.0.exe"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!assets|placeholder\\.svg|favicon|CLYVORA-Setup).*)",
       "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/CLYVORA-Setup-v1.0.exe",
+      "headers": [
+        { "key": "Content-Type", "value": "application/octet-stream" },
+        { "key": "Content-Disposition", "value": "attachment; filename=CLYVORA-Setup-v1.0.exe" }
+      ]
     }
   ]
 }
