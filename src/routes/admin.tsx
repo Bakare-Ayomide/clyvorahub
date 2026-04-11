@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Upload, Trash2, FileCheck } from "lucide-react";
 import { toast, Toaster } from "sonner";
 
-const Route = createFileRoute("/admin")({
+export const Route = createFileRoute("/admin")({
   component: AdminPage,
   head: () => ({
     meta: [{ title: "CLYVORA Admin" }],
@@ -124,9 +124,9 @@ function AdminPage() {
                   <span className="font-medium">{currentFile.file_name}</span>
                   <span className="text-muted-foreground">Size:</span>
                   <span className="font-medium">
-                    {currentFile.file_size
+                    {(currentFile.file_size
                       ? `${(currentFile.file_size / 1024 / 1024).toFixed(1)} MB`
-                      : "Unknown"}
+                      : "Unknown")}
                   </span>
                   <span className="text-muted-foreground">Type:</span>
                   <span className="font-medium">
