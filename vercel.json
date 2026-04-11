@@ -1,7 +1,9 @@
 {
+  "buildCommand": "bun run build",
+  "outputDirectory": "dist",
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!assets|CLYVORA-Setup|placeholder\\.svg|favicon).*)",
       "destination": "/index.html"
     }
   ],
@@ -9,14 +11,8 @@
     {
       "source": "/CLYVORA-Setup-v1.0.exe",
       "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/octet-stream"
-        },
-        {
-          "key": "Content-Disposition",
-          "value": "attachment; filename=CLYVORA-Setup-v1.0.exe"
-        }
+        { "key": "Content-Type", "value": "application/octet-stream" },
+        { "key": "Content-Disposition", "value": "attachment; filename=CLYVORA-Setup-v1.0.exe" }
       ]
     }
   ]
