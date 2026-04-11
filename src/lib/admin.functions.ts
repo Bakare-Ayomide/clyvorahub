@@ -27,21 +27,19 @@ export const seedAdminUser = createServerFn({ method: "POST" }).handler(
       userId = data.user.id;
     }
 
-    // Ensure admin role exists
-    const { data: roleExists } = await supabaseAdmin
+    // Always ensure admin role exists (upsert)
+    const { error: deleteError } = await supabaseAdmin
       .from("user_roles")
-      .select("id")
+      .delete()
       .eq("user_id", userId)
-      .eq("role", "admin")
-      .maybeSingle();
-
-    if (!roleExists) {
-      const { error: roleError } = await supabaseAdmin
-        .from("user_roles")
-        .insert({ user_id: userId, role: "admin" });
-      if (roleError)
-        throw new Error(`Failed to assign role: ${roleError.message}`);
-    }
+      .eq("role", "admin");
+    
+    const { error: roleError } = await supabaseAdmin
+      .from("user_roles")
+      .insert({ user_id: userId, role: "admin" });
+    
+    if (roleError)
+      throw new Error(`Failed to assign role: ${roleError.message}`);
 
     return { success: true, message: "Admin user ready" };
   }
