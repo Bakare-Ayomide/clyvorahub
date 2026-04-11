@@ -1,31 +1,66 @@
-import { VercelRequest, VercelResponse } from '@vercel/node'
-import server from '../dist/server/server.js'
-
-export default async (req: VercelRequest, res: VercelResponse) => {
+export default async (req, res) => {
   try {
-    const url = new URL(req.url || '/', `http://${req.headers.host}`)
+    // Import the server handler
+    const { default: server } = await import('../dist/server/server.js')
     
-    // Convert Vercel request to Fetch API Request
+    // Build the full URL
+    const protocol = req.headers['x-forwarded-proto'] || 'https'
+    const host = req.headers['x-forwarded-host'] || req.headers.host
+    const url = `${protocol}://${host}${req.url}`
+    
+    // Build the body
+    let body = undefined
+    if (req.method !== 'GET' && req.method !== 'HEAD') {
+      if (typeof req.body === 'string') {
+        body = req.body
+      } else if (req.body) {
+        body = JSON.stringify(req.body)
+      } else {
+        // Read from the request stream
+        body = await new Promise((resolve) => {
+          let data = ''
+          req.on('data', chunk => {
+            data += chunk
+          })
+          req.on('end', () => {
+            resolve(data || undefined)
+          })
+        })
+      }
+    }
+    
+    // Create a Fetch API request
+    const headers = new Headers()
+    for (const [key, value] of Object.entries(req.headers)) {
+      if (value && typeof value === 'string') {
+        headers.append(key, value)
+      } else if (Array.isArray(value)) {
+        value.forEach(v => headers.append(key, v))
+      }
+    }
+    
     const fetchRequest = new Request(url, {
       method: req.method,
-      headers: req.headers as HeadersInit,
-      body: req.method !== 'GET' && req.method !== 'HEAD' ? JSON.stringify(req.body) : undefined,
+      headers,
+      body,
     })
     
     // Call the TanStack Start SSR handler
     const response = await server.fetch(fetchRequest)
     
-    // Convert Fetch Response to Vercel response
+    // Set response status
     res.status(response.status)
     
+    // Set response headers
     response.headers.forEach((value, key) => {
       res.setHeader(key, value)
     })
     
-    const body = await response.text()
-    res.send(body)
+    // Send the body
+    const responseBody = await response.text()
+    res.send(responseBody)
   } catch (error) {
-    console.error(error)
+    console.error('SSR Error:', error)
     res.status(500).send('Internal Server Error')
   }
 }
